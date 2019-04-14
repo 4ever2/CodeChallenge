@@ -23,7 +23,7 @@ namespace CodeChallengeV2.Services
             var failures = disconnected.Select(node => getEdges(network, node.Id).First().Target).ToList<string>();
             //var failureNodes = failures.Select(id => network.Nodes.FirstOrDefault(node => node.Id == id));
 
-            var failureNodes = new List<Node>();
+            var failureNodes = new HashSet<Node>();
 
             foreach (var s in failures)
             {
@@ -34,7 +34,7 @@ namespace CodeChallengeV2.Services
                 }
             }
 
-            return Task.FromResult(failureNodes);
+            return Task.FromResult(failureNodes.ToList());
         }
 
         private List<Edge> getEdges(Graph graph, string id)
